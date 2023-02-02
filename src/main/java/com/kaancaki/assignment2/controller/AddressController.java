@@ -1,8 +1,8 @@
 package com.kaancaki.assignment2.controller;
-
 import com.kaancaki.assignment2.dto.AddressResponseDto;
 import com.kaancaki.assignment2.dto.AddressSaveRequestDto;
 import com.kaancaki.assignment2.entity.*;
+import com.kaancaki.assignment2.service.AddressService;
 import com.kaancaki.assignment2.service.entityservice.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +16,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AddressController {
 
-    private final CountryEntityService countryEntityService;
-    private final CityEntityService cityEntityService;
-    private final DistrictEntityService districtEntityService;
-    private final NeighborhoodEntityService neighborhoodEntityService;
-    private final StreetEntityService streetEntityService;
-    private final AddressEntityService addressEntityService;
+    private final AddressService addressService;
     @PostMapping("countries")
     public ResponseEntity save(@RequestBody Country country){
 
-        country = countryEntityService.save(country);
+        country = addressService.saveCountry(country);
 
         return ResponseEntity.ok(country);
     }
@@ -33,7 +28,7 @@ public class AddressController {
     @GetMapping("/countries/{code}")
     public ResponseEntity findByCountryCode(@PathVariable String code){
 
-        Country country = countryEntityService.findByCountryCode(code);
+        Country country = addressService.findByCountryCode(code);
 
         return ResponseEntity.ok(country);
     }
@@ -41,7 +36,7 @@ public class AddressController {
     @PostMapping("/cities")
     public ResponseEntity save(@RequestBody City city){
 
-        city = cityEntityService.save(city);
+        city = addressService.saveCity(city);
 
         return ResponseEntity.ok(city);
     }
@@ -49,7 +44,7 @@ public class AddressController {
     @GetMapping("/cities/{plateCode}")
     public ResponseEntity findByPlateCode(@PathVariable String plateCode){
 
-        City city = cityEntityService.findByPlateCode(plateCode);
+        City city = addressService.findByPlateCode(plateCode);
 
         return ResponseEntity.ok(city);
     }
@@ -57,7 +52,7 @@ public class AddressController {
     @PostMapping("/districts")
     public ResponseEntity save(@RequestBody District district){
 
-        district = districtEntityService.save(district);
+        district = addressService.saveDistrict(district);
 
         return ResponseEntity.ok(district);
     }
@@ -65,7 +60,7 @@ public class AddressController {
     @GetMapping("/districts/{cityId}")
     public ResponseEntity findAllByCityId(@PathVariable Long cityId){
 
-        List<District> districtList = districtEntityService.findByAllCityId(cityId);
+        List<District> districtList = addressService.findAllByCityId(cityId);
 
         return ResponseEntity.ok(districtList);
     }
@@ -73,7 +68,7 @@ public class AddressController {
     @PostMapping("/neighborhoods")
     public ResponseEntity save(@RequestBody Neighborhood neighborhood){
 
-         neighborhood = neighborhoodEntityService.save(neighborhood);
+         neighborhood = addressService.saveNeighborhood(neighborhood);
 
          return ResponseEntity.ok(neighborhood);
     }
@@ -81,7 +76,7 @@ public class AddressController {
     @PatchMapping("/neighborhoods")
     public ResponseEntity updateNeighborhoodName(@RequestParam Long id,@RequestParam String name){
 
-        Neighborhood neighborhood = neighborhoodEntityService.updateNeighborhoodName(id, name);
+        Neighborhood neighborhood = addressService.updateNeighborhoodName(id, name);
 
         return ResponseEntity.ok(neighborhood);
     }
@@ -89,7 +84,7 @@ public class AddressController {
     @GetMapping("/neighborhoods/{districtId}")
     public ResponseEntity findAllNeighborhoods(@PathVariable Long districtId){
 
-        List<Neighborhood> neighborhoodList = neighborhoodEntityService.findAllByDistrictId(districtId);
+        List<Neighborhood> neighborhoodList = addressService.findAllNeighborhood(districtId);
 
         return ResponseEntity.ok(neighborhoodList);
     }
@@ -97,7 +92,7 @@ public class AddressController {
     @PostMapping("/streets")
     public ResponseEntity save(@RequestBody Street street){
 
-        street = streetEntityService.save(street);
+        street = addressService.saveStreet(street);
 
         return ResponseEntity.ok(street);
     }
@@ -105,7 +100,7 @@ public class AddressController {
     @PatchMapping("/streets")
     public ResponseEntity updateStreetName(@RequestParam Long id,@RequestParam String name){
 
-        Street street = streetEntityService.updateStreetName(id, name);
+        Street street = addressService.updateStreetName(id, name);
 
         return ResponseEntity.ok(street);
     }
@@ -113,7 +108,7 @@ public class AddressController {
     @GetMapping("/streets/{neighborhoodId}")
     public ResponseEntity findAllStreets(@PathVariable Long neighborhoodId){
 
-        List<Street> streetList = streetEntityService.findAllByNeighborhoodId(neighborhoodId);
+        List<Street> streetList = addressService.findAllStreet(neighborhoodId);
 
         return ResponseEntity.ok(streetList);
     }
@@ -121,7 +116,7 @@ public class AddressController {
     @PostMapping()
     public ResponseEntity save(@RequestBody AddressSaveRequestDto addressSaveRequestDto){
 
-        AddressResponseDto addressResponseDto = addressEntityService.save(addressSaveRequestDto);
+        AddressResponseDto addressResponseDto = addressService.saveAddress(addressSaveRequestDto);
 
         return ResponseEntity.ok(addressResponseDto);
     }
@@ -129,7 +124,7 @@ public class AddressController {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id){
 
-        addressEntityService.delete(id);
+        addressService.deleteAddress(id);
 
         return ResponseEntity.ok(Void.TYPE);
     }
@@ -137,7 +132,7 @@ public class AddressController {
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable Long id){
 
-        AddressResponseDto addressResponseDto = addressEntityService.findById(id);
+        AddressResponseDto addressResponseDto = addressService.findAddressById(id);
 
         return ResponseEntity.ok(addressResponseDto);
     }

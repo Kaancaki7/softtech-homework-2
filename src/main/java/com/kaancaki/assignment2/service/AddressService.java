@@ -1,4 +1,4 @@
-package com.kaancaki.assignment2.controller;
+package com.kaancaki.assignment2.service;
 
 import com.kaancaki.assignment2.dto.AddressResponseDto;
 import com.kaancaki.assignment2.dto.AddressSaveRequestDto;
