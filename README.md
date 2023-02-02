@@ -1,8 +1,8 @@
 # softtech-homework-2
 
-###Adres Kayıt Sistemi: 
+### Adres Kayıt Sistemi: 
 
-####Bir adreste bulunması gereken alanlar: 
+#### Bir adreste bulunması gereken alanlar: 
 
 - Ülke
 - Şehir
@@ -12,7 +12,7 @@
 - Kapı No
 - Daire No
 
-####Bir adet controller yazınız(Tek controller yeterli). Bu controller içerisinde aşağıdaki işlemler
+#### Bir adet controller yazınız(Tek controller yeterli). Bu controller içerisinde aşağıdaki işlemler
 yapılabilmelidir. 
 
 1. Ülke kaydedilebilmelidir.
@@ -31,7 +31,7 @@ yapılabilmelidir.
 14. Adres silinebilmelidir.
 15. Id den adres bilgisi edinilebilmelidir.
 
-###NOT: 
+### NOT: 
 
 - Address entitysi hariç diğer entitylerin servislerinde entity kullanabilirsiniz. Yani metot
 parametresi için dto, return için başka bir dto kullanmanıza gerek yok.
