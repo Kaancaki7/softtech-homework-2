@@ -1,8 +1,9 @@
 package com.kaancaki.assignment2.controller;
 
+import com.kaancaki.assignment2.dto.AddressResponseDto;
+import com.kaancaki.assignment2.dto.AddressSaveRequestDto;
 import com.kaancaki.assignment2.entity.*;
 import com.kaancaki.assignment2.service.entityservice.*;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ public class AddressController {
     private final DistrictEntityService districtEntityService;
     private final NeighborhoodEntityService neighborhoodEntityService;
     private final StreetEntityService streetEntityService;
+    private final AddressEntityService addressEntityService;
     @PostMapping("countries")
     public ResponseEntity save(@RequestBody Country country){
 
@@ -114,5 +116,29 @@ public class AddressController {
         List<Street> streetList = streetEntityService.findAllByNeighborhoodId(neighborhoodId);
 
         return ResponseEntity.ok(streetList);
+    }
+
+    @PostMapping()
+    public ResponseEntity save(@RequestBody AddressSaveRequestDto addressSaveRequestDto){
+
+        AddressResponseDto addressResponseDto = addressEntityService.save(addressSaveRequestDto);
+
+        return ResponseEntity.ok(addressResponseDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+
+        addressEntityService.delete(id);
+
+        return ResponseEntity.ok(Void.TYPE);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable Long id){
+
+        AddressResponseDto addressResponseDto = addressEntityService.findById(id);
+
+        return ResponseEntity.ok(addressResponseDto);
     }
 }
