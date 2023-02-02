@@ -1,13 +1,7 @@
 package com.kaancaki.assignment2.controller;
 
-import com.kaancaki.assignment2.entity.City;
-import com.kaancaki.assignment2.entity.Country;
-import com.kaancaki.assignment2.entity.District;
-import com.kaancaki.assignment2.entity.Neighborhood;
-import com.kaancaki.assignment2.service.entityservice.CityEntityService;
-import com.kaancaki.assignment2.service.entityservice.CountryEntityService;
-import com.kaancaki.assignment2.service.entityservice.DistrictEntityService;
-import com.kaancaki.assignment2.service.entityservice.NeighborhoodEntityService;
+import com.kaancaki.assignment2.entity.*;
+import com.kaancaki.assignment2.service.entityservice.*;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +19,7 @@ public class AddressController {
     private final CityEntityService cityEntityService;
     private final DistrictEntityService districtEntityService;
     private final NeighborhoodEntityService neighborhoodEntityService;
+    private final StreetEntityService streetEntityService;
     @PostMapping("countries")
     public ResponseEntity save(@RequestBody Country country){
 
@@ -95,5 +90,21 @@ public class AddressController {
         List<Neighborhood> neighborhoodList = neighborhoodEntityService.findAllByDistrictId(districtId);
 
         return ResponseEntity.ok(neighborhoodList);
+    }
+
+    @PostMapping("/streets")
+    public ResponseEntity save(@RequestBody Street street){
+
+        street = streetEntityService.save(street);
+
+        return ResponseEntity.ok(street);
+    }
+
+    @PatchMapping("/streets")
+    public ResponseEntity updateStreetName(@RequestParam Long id,@RequestParam String name){
+
+        Street street = streetEntityService.updateStreetName(id, name);
+
+        return ResponseEntity.ok(street);
     }
 }
