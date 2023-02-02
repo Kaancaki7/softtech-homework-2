@@ -107,4 +107,12 @@ public class AddressController {
 
         return ResponseEntity.ok(street);
     }
+
+    @GetMapping("/streets/{neighborhoodId}")
+    public ResponseEntity findAllStreets(@PathVariable Long neighborhoodId){
+
+        List<Street> streetList = streetEntityService.findAllByNeighborhoodId(neighborhoodId);
+
+        return ResponseEntity.ok(streetList);
+    }
 }

@@ -4,6 +4,7 @@ import com.kaancaki.assignment2.dao.StreetDao;
 import com.kaancaki.assignment2.entity.Street;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -31,5 +32,9 @@ public class StreetEntityService {
         street.setName(name);
 
         return streetDao.save(street);
+    }
+
+    public List<Street> findAllByNeighborhoodId(Long neighborhoodId){
+        return streetDao.findAllByNeighborhoodId(neighborhoodId);
     }
 }
